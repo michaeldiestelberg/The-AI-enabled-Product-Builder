@@ -15,29 +15,55 @@ Activate this skill when:
 - User is clearly providing content that should be added to a running document rather than receiving conversational analysis or response
 - User begins providing thoughts or ideas that should be documented verbatim
 
-## How to Use This Skill
+## Core Workflow
 
-**CRITICAL**: Once this skill is activated, immediately enter Capture Mode. Do NOT have a conversation about creating a memo or ask what the user wants to capture. The activation itself (user saying "let's create a memo" or similar) IS the signal to start capturing. Begin with Capture Mode acknowledgments immediately.
+This skill has TWO distinct phases. Understanding when to switch between them is CRITICAL.
 
-### Phase 1: Capture Mode (Default State)
+### Phase 1: Capture Mode (DEFAULT - STAY HERE)
 
-When the user is providing thoughts or content to capture:
+**When to be in this phase:** By default, ALWAYS. This is where the skill spends 99% of its time.
 
+**What to do:**
 1. **Do NOT analyze, respond to, or act on the content** being provided
-2. Simply acknowledge receipt and internally maintain the raw input verbatim
-3. Use minimal, neutral acknowledgments:
+2. **Do NOT structure, process, or save to Notion yet**
+3. Simply acknowledge with ONE of these short responses:
    - "Added."
    - "Got it."
    - "Captured."
    - "Added to the memo."
-4. Continue in capture mode across multiple conversational turns
-5. Accumulate all input exactly as provided (whether typed or spoken), preserving everything
+4. Internally accumulate all raw input verbatim
+5. **Continue in Capture Mode for EVERY subsequent message** unless explicitly told to save
 
-**Important**: Treat ALL input as content to capture, regardless of whether it's typed text or voice transcription. The user's intent is to build a document, not to have a conversation about the content.
+**Stay in Capture Mode Examples:**
+- User: "Let's create a memo" → YOU: "Got it." → STAY IN CAPTURE MODE
+- User: "I've been thinking about our product strategy" → YOU: "Added." → STAY IN CAPTURE MODE  
+- User: "We need to improve the catalog structure" → YOU: "Captured." → STAY IN CAPTURE MODE
+- User: "Also the search needs to be better" → YOU: "Added to the memo." → STAY IN CAPTURE MODE
 
-### Phase 2: Finalization (User-Triggered)
+**CRITICAL RULE**: Do NOT exit Capture Mode just because the user stops providing input or sends a complete thought. ALWAYS stay in Capture Mode until explicitly told to save/finalize.
 
-When the user explicitly requests to save the memo to Notion (phrases like "add this to Notion," "save to my inbox," "create the page," etc.):
+### Phase 2: Finalization (ONLY WHEN EXPLICITLY REQUESTED)
+
+**When to enter this phase:** ONLY when the user uses one of these EXPLICIT phrases:
+- "Add this to Notion"
+- "Save to my inbox"
+- "Create the page"
+- "Save this memo"
+- "Done, save it"
+- Similar explicit save/finalize commands
+
+**Do NOT enter this phase when:**
+- User simply stops talking/typing
+- User sends a complete thought
+- User pauses between messages
+- You think they might be done
+
+**Exit Capture Mode Examples (triggers for Phase 2):**
+- User: "Add this to Notion" → NOW exit Capture Mode and finalize
+- User: "Ok, save to my inbox" → NOW exit Capture Mode and finalize
+- User: "Create the page now" → NOW exit Capture Mode and finalize
+
+**What to do in Phase 2:**
 
 #### Step 1: Structure the Content
 
@@ -85,7 +111,7 @@ The structured memo goes on top, followed by a clear separator, then the raw not
 1. **Generate Title**: Create a concise, descriptive title in Title Case that captures the memo's essence (typically 5-10 words)
 
 2. **Create Notion Page**: 
-   - Use database ID: `YOUR_DATABASE_ID_HERE`
+   - Use database ID: `1f566a9ce05280dbaf7ae5f5e93a571f`
    - Set the title property with the generated title
    - Add the complete document (structured memo + raw notes) as the page content
    - Use the Notion MCP tools to create the page
@@ -99,11 +125,37 @@ The structured memo goes on top, followed by a clear separator, then the raw not
    The title is: "[Generated Title in Title Case]"
    ```
 
-## Important Notes
+## Complete Interaction Example
 
-- **Stay in character**: Remain in capture mode by default. Do not break character to discuss, question, or analyze the content being dictated
-- **Transition only when requested**: Only move to finalization when the user explicitly asks to save to Notion
+**User:** "Let's create a memo"  
+**Assistant:** "Got it."  
+*(Capture Mode active)*
+
+**User:** "I've been thinking about how we could improve our product catalog structure. Right now we have too many nested categories."  
+**Assistant:** "Added."  
+*(Still in Capture Mode)*
+
+**User:** "Maybe we should flatten the hierarchy but keep two levels max."  
+**Assistant:** "Captured."  
+*(Still in Capture Mode)*
+
+**User:** "Also the search needs to use AI not just keywords."  
+**Assistant:** "Added to the memo."  
+*(Still in Capture Mode)*
+
+**User:** "Save to my inbox"  
+**Assistant:** *[NOW exits Capture Mode, structures content, creates document, saves to Notion]*  
+"I've created your memo and added it to your Notion inbox:
+
+[View in Notion](link)
+
+The title is: 'Product Catalog Structure And Search Improvements'"
+
+## Important Reminders
+
+- **Default to Capture Mode**: When in doubt, stay in Capture Mode with a simple acknowledgment
+- **Explicit triggers only**: Only finalize when user explicitly asks to save/add to Notion
+- **No assumptions**: Never assume the user is done just because they sent a complete thought
 - **Preserve everything**: The raw notes section must contain all original input for reference
-- **Quality titles**: Generate titles that are specific and informative, not generic (e.g., "Product Catalog Structure Improvements" not "Meeting Notes")
+- **Quality titles**: Generate titles that are specific and informative, not generic
 - **No metadata**: Do not add any additional Notion page properties beyond the title
-- **Format flexibility**: Let the content guide the structure—don't force a format that doesn't fit the material
