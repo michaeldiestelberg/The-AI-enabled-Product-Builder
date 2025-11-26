@@ -1,16 +1,11 @@
----
-name: create-memo
-description: This skill helps capture unstructured thoughts (via text or voice) across multiple turns and converts them into structured memos that are saved to a Notion inbox database. Use when the user wants to create a memo, capture thoughts, or provide content that should be documented verbatim without analysis or response.
----
-
 # Create Memo
 
-This skill enables capturing raw, unstructured thoughts (via text or voice input) across multiple conversational turns, then structuring those thoughts into a polished memo and saving it to a Notion inbox database.
+This skill enables capturing raw, unstructured thoughts (via text or voice input) across multiple conversational turns, then structuring those thoughts into a polished memo and saving it to a Google Keep note.
 
 ## When to Use This Skill
 
 Activate this skill when:
-- User wants to create a memo or capture thoughts
+- User wants to create a note, memo or capture thoughts
 - User says phrases like "Let's create a memo," "I want to capture some thoughts," "Let me dictate something," or similar
 - User is clearly providing content that should be added to a running document rather than receiving conversational analysis or response
 - User begins providing thoughts or ideas that should be documented verbatim
@@ -25,7 +20,7 @@ This skill has TWO distinct phases. Understanding when to switch between them is
 
 **What to do:**
 1. **Do NOT analyze, respond to, or act on the content** being provided
-2. **Do NOT structure, process, or save to Notion yet**
+2. **Do NOT structure, process, or save to Google Keep yet**
 3. Simply acknowledge with ONE of these short responses:
    - "Added."
    - "Got it."
@@ -45,9 +40,9 @@ This skill has TWO distinct phases. Understanding when to switch between them is
 ### Phase 2: Finalization (ONLY WHEN EXPLICITLY REQUESTED)
 
 **When to enter this phase:** ONLY when the user uses one of these EXPLICIT phrases:
-- "Add this to Notion"
-- "Save to my inbox"
-- "Create the page"
+- "Add this to Google Keep"
+- "Save to my notes"
+- "Create the memo"
 - "Save this memo"
 - "Done, save it"
 - Similar explicit save/finalize commands
@@ -59,9 +54,9 @@ This skill has TWO distinct phases. Understanding when to switch between them is
 - You think they might be done
 
 **Exit Capture Mode Examples (triggers for Phase 2):**
-- User: "Add this to Notion" → NOW exit Capture Mode and finalize
-- User: "Ok, save to my inbox" → NOW exit Capture Mode and finalize
-- User: "Create the page now" → NOW exit Capture Mode and finalize
+- User: "Add this to Google Keep" → NOW exit Capture Mode and finalize
+- User: "Ok, save to my Notes" → NOW exit Capture Mode and finalize
+- User: "Create the memo now" → NOW exit Capture Mode and finalize
 
 **What to do in Phase 2:**
 
@@ -106,23 +101,20 @@ Create a document with two distinct sections:
 
 The structured memo goes on top, followed by a clear separator, then the raw notes at the bottom for reference.
 
-#### Step 3: Save to Notion
+#### Step 3: Save to Google Keep
 
 1. **Generate Title**: Create a concise, descriptive title in Title Case that captures the memo's essence (typically 5-10 words)
 
-2. **Create Notion Page**: 
-   - Use database ID: `[YOUR NOTION DATABASE ID]`
-   - Set the title property with the generated title
-   - Add the complete document (structured memo + raw notes) as the page content
-   - Use the Notion MCP tools to create the page
+2. **Create Google Keep note**: 
+   - Set the title with the generated title
+   - Add the complete document (structured memo + raw notes) as the note content
+   - Use the Google Keep app integration to create the note
 
 3. **Confirm Success**: After successful creation, output:
    ```
-   I've created your memo and added it to your Notion inbox:
+   I've created your memo and added it to Google Keep:
    
-   [View in Notion](notion-page-link)
-   
-   The title is: "[Generated Title in Title Case]"
+   [Show link to note including preview]
    ```
 
 ## Complete Interaction Example
@@ -143,19 +135,16 @@ The structured memo goes on top, followed by a clear separator, then the raw not
 **Assistant:** "Added to the memo."  
 *(Still in Capture Mode)*
 
-**User:** "Save to my inbox"  
-**Assistant:** *[NOW exits Capture Mode, structures content, creates document, saves to Notion]*  
-"I've created your memo and added it to your Notion inbox:
-
-[View in Notion](link)
+**User:** "Save the memo"  
+**Assistant:** *[NOW exits Capture Mode, structures content, creates document, saves to Google Keep]*  
+"I've created your memo and added it to Google Keep:
 
 The title is: 'Product Catalog Structure And Search Improvements'"
 
 ## Important Reminders
 
 - **Default to Capture Mode**: When in doubt, stay in Capture Mode with a simple acknowledgment
-- **Explicit triggers only**: Only finalize when user explicitly asks to save/add to Notion
+- **Explicit triggers only**: Only finalize when user explicitly asks to save/add to Google Keep
 - **No assumptions**: Never assume the user is done just because they sent a complete thought
 - **Preserve everything**: The raw notes section must contain all original input for reference
 - **Quality titles**: Generate titles that are specific and informative, not generic
-- **No metadata**: Do not add any additional Notion page properties beyond the title
