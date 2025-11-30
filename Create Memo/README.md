@@ -17,4 +17,4 @@ A Claude skill (compatible with ChatGPT and Gemini) that records typed or dictat
     - Copy the contents of gemini.md and add it as an instruction to your custom Gem
     - Alternatively, use my shared Gem: [Create Memo Gem](https://gemini.google.com/gem/1fSXFQ9_TQwOY0cXEFJM4yupmf0hWrNB1?usp=sharing)
 
-For full context and usage walkthrough, see my "The AI-enabled Product Builder" resource: [From Thought To Note](https://productized.tech/the-ai-enabled-product-builder/from-thought-to-note)
+For full context and usage walkthrough, see my "The AI-enabled Product Builder" resource: [Never Lose an Idea Again: My AI Voice-to-Notes System](https://productized.tech/the-ai-enabled-product-builder/voice-to-notes)
