@@ -11,13 +11,16 @@ Paste your notes → Get a React artifact that builds up your narrative visually
 - Click anywhere or use arrow keys to reveal the next point
 - Smooth animations as new cards appear
 - Auto-scrolls to keep the latest point visible
-- Distinctive, non-generic design
 
 ## Installation
 
 1. Download `SKILL.md`
 2. In Claude.ai, go to **Settings → Profile → Claude skills**
 3. Upload the file
+
+**V1 vs. V2:**
+
+V1 uses a generic design based on the front-end skill that Anthropic provides for Claude. V2 defines a very specific style that I am using in most of my interactive presentations. Choose the one you prefer.
 
 ## Usage
 
