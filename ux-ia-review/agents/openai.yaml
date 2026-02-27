@@ -1,0 +1,4 @@
+interface:
+  display_name: "UX IA Review"
+  short_description: "Review screenshots for usability and information architecture"
+  default_prompt: "Review the provided screenshot for usability and information architecture. Identify structural issues, propose what should change and why, then produce a copy/paste prompt for a coding agent to implement those UX/IA changes without technical implementation instructions."
